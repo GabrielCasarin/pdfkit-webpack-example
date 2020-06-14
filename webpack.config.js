@@ -1,15 +1,32 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin');
+const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader');
+
 
 module.exports = {
+  entry: ['./src/index.js'],
+  output: {
+    filename: 'app.bundle.js',
+    path: path.resolve(__dirname, 'build')
+  },
   resolve: {
 		alias: {
-			fs: 'pdfkit/js/virtual-fs.js'
+			fs: 'pdfkit/js/virtual-fs.js',
+      'vue$': 'vue/dist/vue.esm.js'
 		}
   },
   module: {    
     rules: [            
+      { test: /\.vue$/, loader: 'vue-loader'},
+      {
+        test: /\.m?(js)$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
       { enforce: 'post', test: /fontkit[/\\]index.js$/, loader: "transform-loader?brfs" },
       { enforce: 'post', test: /unicode-properties[/\\]index.js$/, loader: "transform-loader?brfs" },
       { enforce: 'post', test: /linebreak[/\\]src[/\\]linebreaker.js/, loader: "transform-loader?brfs" },
@@ -18,16 +35,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src/index.html')
-    })
+    new VueLoaderPlugin()
   ],
-  optimization: {
-    minimizer: [
-      new TerserPlugin({
-        exclude: /src[/\\]index\.js$/ // not working
-      })
-    ]
-  },
   devtool: 'sourcemap'
 }
