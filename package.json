@@ -1,21 +1,37 @@
 {
+  "name": "pdf-test",
+  "version": "1.0.0",
+  "description": "simple SVG to PDF test",
+  "private": true,
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
   "license": "MIT",
   "dependencies": {
     "blob-stream": "^0.1.3",
     "brace": "^0.11.1",
-    "pdfkit": "^0.10.0"
+    "express": "^4.17.1",
+    "pdfkit": "^0.10.0",
+    "svg-to-pdfkit": "^0.1.8"
   },
   "devDependencies": {
     "arraybuffer-loader": "^1.0.8",
-    "brfs": "^2.0.2",
-    "html-webpack-plugin": "^3.2.0",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "babel-loader": "^8.1.0",
     "raw-loader": "^3.1.0",
-    "string-replace-webpack-plugin": "^0.1.3",
     "transform-loader": "^0.2.4",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "vue": "^2.6.11",
+    "vue-loader": "^15.9.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "scripts": {
+    "start": "babel-node index.js",
     "dev": "webpack --mode development",
     "prod": "webpack --mode production"
   }
